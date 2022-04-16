@@ -1,3 +1,4 @@
+
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
@@ -110,4 +111,13 @@ function setCircleDasharray() {
   document
     .getElementById("base-timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
+}
+function sliderScript(document) {
+    slider = document.querySelector("input");
+    slider.oninput = function() {
+        progressBar = document.querySelector("progress");
+        progressBar.value = slider.value;
+        sliderValue = document.querySelector(".sliderValue");
+        sliderValue.innerHTML = slider.value;
+    }
 }

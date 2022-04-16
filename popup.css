@@ -1,3 +1,4 @@
+
 body {
     height: 500px;
     width: 350px;
@@ -61,4 +62,66 @@ body {
     border-color: black;
     width: 300px;
     height: 100px;
+}
+ 
+.slider-cont {
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 5px 30px 30px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.slider {
+    position: relative;
+    width: 200px;
+    height: 20px;
+}
+
+.slider input {
+    position: absolute;
+    left: -6px;
+    top: 0;
+    width: 212px;
+    height: 20px;
+    -webkit-appearance: none;
+    background-color: transparent;
+    z-index: 99;
+}
+
+.slider input::-webkit-slider-thumb {
+    -webKit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid #e91e63;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider progress {
+    width: 200px;
+    height: 20px;
+    -webkit-appearance: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius:10px;
+    overflow: hidden;
+}
+
+.slider progress::-webkit-progress-bar {
+    background-color: #f0f0f0;
+}
+
+.slider progress::-webkit-progress-value {
+    background-color: #e91e63;
+}
+
+.sliderValue {
+    font-family: "Google Sans Regular";
+    width: 28px;
+    height: 20px;
+    margin-left: 10px;
+    text-align: center;
 }
