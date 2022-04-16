@@ -11,5 +11,9 @@
     "action": {
         "default_popup": "popup.html",
         "default_title": "Umbilicus"
-    }
+    },
+    "permissions": [
+        "storage"
+    ],
+    "options_page": "options.html"
 }
