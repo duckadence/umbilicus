@@ -1,4 +1,5 @@
 var play = true;
+var volume = 50;
 
 document.addEventListener("DOMContentLoaded", function () {
   var iframe = document.createElement("iframe");
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   iframe.setAttribute("height", "0");
   iframe.setAttribute(
     "src",
-    "https://www.youtube-nocookie.com/embed/5qap5aO4i9A?enablejsapi=1"
+    "https://www.youtube.com/embed/5qap5aO4i9A?enablejsapi=1"
   );
   iframe.setAttribute("frameborder", "0");
   iframe.setAttribute(
@@ -18,11 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  console.log(
-    sender.tab
-      ? "from a content script:" + sender.tab.url
-      : "from the extension"
-  );
+  console.log(request.command);
   if (request.command === "start/stop") {
     if (play) {
       //   $(".youtube-video")[0].contentWindow.postMessage(
@@ -44,7 +41,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       play = true;
     }
     sendResponse({ res: "done." });
-  } else if (request.command === "volume") {
+  } else if (request.command === "setVolume") {
+    volume = request.volume;
     document
       .getElementById("youtube")
       .contentWindow.postMessage(
@@ -55,5 +53,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
           "}",
         "*"
       );
+    sendResponse({ res: "done." });
+  } else if (request.command === "getVolume") {
+    sendResponse({ res: volume });
+  } else {
+    sendResponse({ res: "ERR: Invalid command." });
   }
 });

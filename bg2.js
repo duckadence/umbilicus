@@ -3,7 +3,7 @@ let timePassed;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 
-chrome.runtime.onMessage.addListener()
+chrome.runtime.onMessage.addListener();
 
 function onTimesUp() {
   clearInterval(timerInterval);
@@ -14,7 +14,6 @@ function startTimer() {
     timePassed = timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
 
-      onTimesUp();
-    }
+    onTimesUp();
   }, 1000);
 }
