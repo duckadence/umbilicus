@@ -75,7 +75,6 @@ function onTimesUp() {
   timeLeft = TIME_LIMIT;
   timePassed = 0;
 
-  chrome.extension.getBackgroundPage().alert('You can now procrastinate!');
 }
 
 function startTimer() {
