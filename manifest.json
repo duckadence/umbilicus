@@ -14,6 +14,6 @@
     },
     "background": {
         "persistent": true,
-        "scripts": ["popup.js"]
+        "scripts": ["bg2.js"]
     }
 }
