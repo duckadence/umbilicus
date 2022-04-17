@@ -56,19 +56,22 @@ document.getElementById("timer").innerHTML = `
 
 function onTimesUp() {
   clearInterval(timerInterval);
+  TIME_LIMIT = 0;
+  timeLeft = TIME_LIMIT;
 }
 
 function startTimer() {
   timerInterval = setInterval(() => {
-    timePassed = timePassed += 1;
+    timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
     document.getElementById("base-timer-label").innerHTML =
       formatTime(timeLeft);
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
-    if (timeLeft === 0) {
+    if (timeLeft <= 0) {
       onTimesUp();
+      setRemainingPathColor(283);
       const div = document.getElementById("input-container");
       div.style.opacity = "1";
     }
@@ -122,7 +125,7 @@ function setCircleDasharray() {
 document.getElementById("button").addEventListener("click", setTime);
 
 function setTime() {
-  TIME_LIMIT = document.getElementById("number").value * 60;
+  TIME_LIMIT += document.getElementById("number").value * 60;
   document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
   startTimer();
   const div = document.getElementById("input-container");
