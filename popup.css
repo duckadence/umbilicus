@@ -90,13 +90,15 @@ body {
 }
 
 .slider input::-webkit-slider-thumb {
-    -webKit-appearance: none;
+    -webkit-appearance: none;
     width: 20px;
     height: 20px;
     background-color: #fff;
     border: 2px solid #e91e63;
     border-radius: 50%;
     cursor: pointer;
+    margin-top: -3px; /* alignment fix for Chrome */
+    margin-left:-3px;
 }
 
 .slider progress {
