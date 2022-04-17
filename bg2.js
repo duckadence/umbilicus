@@ -1,13 +1,27 @@
-chrome.browserAction.onClicked.addListener(popupActive)
 
-function popupActive
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.status === "inactive") {
+        if (timeLeft <= 0) {
+            sendResponse({ status: "inactive" });
+        } else if (timeLeft > 0) {
+            sendResponse({ status: "active", timeMax: TIME_LIMIT, timeRemain: timeLeft, timeOver: timePassed });
+        } else {
+        }
+    } else if (request.status === "active") {
+        TIME_LIMIT = request.timeMax;
+        timeLeft = request.timeRemain;
+        timePassed = request.timeOver;
+        console.log(timeLeft);
+        startTimer();
+    } else if (request.status === "finish") {
+        onTimesUp;
+    }
+});
 
 let TIME_LIMIT = 0;
-let timePassed;
-let timeLeft = TIME_LIMIT;
+let timePassed = 0;
+let timeLeft = 0;
 let timerInterval = null;
-
-chrome.runtime.onMessage.addListener()
 
 function onTimesUp() {
   clearInterval(timerInterval);
@@ -16,6 +30,7 @@ function onTimesUp() {
 }
 
 function startTimer() {
+  clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
@@ -24,3 +39,4 @@ function startTimer() {
     }
   }, 1000);
 }
+

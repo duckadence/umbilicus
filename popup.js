@@ -58,18 +58,22 @@ function onTimesUp() {
   clearInterval(timerInterval);
   TIME_LIMIT = 0;
   timeLeft = TIME_LIMIT;
+  timePassed = 0;
 }
 
 function startTimer() {
+  clearInterval(timerInterval);
+  chrome.runtime.sendMessage({ status: "active", timeMax: TIME_LIMIT, timeRemain: timeLeft, timeOver: timePassed }); 
   timerInterval = setInterval(() => {
     timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML =
-      formatTime(timeLeft);
+
+    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
     if (timeLeft <= 0) {
+      chrome.runtime.sendMessage({ status: "finish" });
       onTimesUp();
       setRemainingPathColor(283);
       const div = document.getElementById("input-container");
@@ -126,11 +130,28 @@ document.getElementById("button").addEventListener("click", setTime);
 
 function setTime() {
   TIME_LIMIT += document.getElementById("number").value * 60;
-  document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+  timeLeft = TIME_LIMIT;
   startTimer();
   const div = document.getElementById("input-container");
   div.style.opacity = "0";
 }
+
+chrome.runtime.sendMessage({ status: "inactive" },
+    function (response) {
+        if (response.status === "active") {
+            const div = document.getElementById("input-container");
+            div.style.opacity = "0";
+            TIME_LIMIT = response.timeMax;
+            timeLeft = response.timeRemain;
+            timePassed = response.timeOver;
+            document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+            setCircleDasharray();
+            setRemainingPathColor(timeLeft);
+            startTimer();
+        }
+    }
+);
+
 
 function onChangeSlider() {}
 
