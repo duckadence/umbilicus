@@ -1,4 +1,3 @@
-
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
@@ -133,3 +132,18 @@ slider.oninput = function() {
   sliderValue.innerHTML = slider.value;
 }
 
+var play = false;
+
+function startOrStopMusic() {
+  chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
+    console.log(response.farewell);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  var link = document.getElementById("play");
+
+  link.addEventListener("click", function () {
+    startOrStopMusic();
+  });
+});
