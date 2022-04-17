@@ -38,8 +38,20 @@ body {
     transform: rotate(90deg);
     transform-origin: center;
     transition: 1s linear all;
-    stroke: rgb(211, 55, 55);/*currentColor;*/
+    stroke: currentColor;
 }
+
+.base-timer__path-remaining.green {
+    color: rgb(65, 184, 131);
+  }
+  
+  .base-timer__path-remaining.orange {
+    color: orange;
+  }
+  
+  .base-timer__path-remaining.red {
+    color: red;
+  }
 
 .base-timer__svg {
     transform: scaleX(-1);
@@ -64,6 +76,8 @@ body {
     height: 100px;
 }
  
+/*VOLUME SLIDER*/
+
 .slider-cont {
     padding: 25px;
     background-color: #fff;
