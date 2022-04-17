@@ -38,7 +38,7 @@ body {
     transform: rotate(90deg);
     transform-origin: center;
     transition: 1s linear all;
-    stroke: currentColor;
+    stroke: rgb(211, 55, 55);/*currentColor;*/
 }
 
 .base-timer__svg {
