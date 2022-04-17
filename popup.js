@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 document.getElementById("timer").innerHTML = `
 <div class="base-timer">
   <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -70,8 +69,8 @@ function startTimer() {
 
     if (timeLeft === 0) {
       onTimesUp();
-      const div = document.getElementById('input-container');
-      div.style.opacity = '1';
+      const div = document.getElementById("input-container");
+      div.style.opacity = "1";
     }
   }, 1000);
 }
@@ -123,11 +122,12 @@ function setCircleDasharray() {
 document.getElementById("button").addEventListener("click", setTime);
 
 function setTime() {
-    TIME_LIMIT = document.getElementById('number').value * 60;
-    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
-    startTimer();
-    const div = document.getElementById('input-container');
-    div.style.opacity = '0';
+  TIME_LIMIT = document.getElementById("number").value * 60;
+  document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+  startTimer();
+  const div = document.getElementById("input-container");
+  div.style.opacity = "0";
+}
 
 function onChangeSlider() {}
 
