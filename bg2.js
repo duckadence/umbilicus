@@ -1,4 +1,3 @@
-
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.status === "inactive") {
         if (timeLeft <= 0) {
@@ -23,11 +22,6 @@ let timePassed = 0;
 let timeLeft = 0;
 let timerInterval = null;
 
-<<<<<<< HEAD
-=======
-chrome.runtime.onMessage.addListener();
-
->>>>>>> 02de79baa2da876b8f3a5afffe9660c74868f547
 function onTimesUp() {
   clearInterval(timerInterval);
   TIME_LIMIT = 0;
