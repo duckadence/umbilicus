@@ -23,7 +23,7 @@ let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
 
-let sliderVal = 50;
+
 
 document.getElementById("timer").innerHTML = `
 <div class="base-timer">
@@ -119,12 +119,17 @@ function onChangeSlider() {
 
 }
 
-function sliderScript() {
-    slider = document.querySelector("input");
-    slider.oninput = function() {
-        progressBar = document.querySelector("progress");
-        progressBar.value = slider.value;
-        sliderValue = document.querySelector(".sliderValue");
-        sliderValue.innerHTML = slider.value;
-    }
+// slider code
+//var slider = document.getElementById("volumeProgress");
+
+var slider = document.getElementById("volumeSlider");
+var output = document.getElementById("sliderValue");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  var progressBar = document.getElementById("volumeProgress");
+  progressBar.value = slider.value;
+  var sliderValue = document.getElementById("sliderValue");
+  sliderValue.innerHTML = slider.value;
 }
+
