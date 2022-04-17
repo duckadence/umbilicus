@@ -83,8 +83,17 @@ body {
 #button {
     border: none;
     border-radius: 8px;
-    background: grey;
-    padding: 4px 16px;
+    background: #eee;
+    padding: 10px 28px;
+    margin-top: 20px;
+}
+
+#button:hover {
+    background: #ddd;
+}
+
+#button:active {
+    background: #ccc;
 }
 
 #number {

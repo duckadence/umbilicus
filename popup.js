@@ -25,21 +25,11 @@ let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
 
 document.addEventListener("DOMContentLoaded", function () {
-  var link = document.getElementById("play");
-
-  link.addEventListener("click", function () {
-    startOrStopMusic();
-  });
-
   slider = document.getElementById("volumeSlider");
-  var output = document.getElementById("sliderValue");
-  output.innerHTML = slider.value;
 
   slider.oninput = function () {
     var progressBar = document.getElementById("volumeProgress");
     progressBar.value = slider.value;
-    var sliderValue = document.getElementById("sliderValue");
-    sliderValue.innerHTML = slider.value;
 
     changeVolume();
   };
@@ -49,8 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
     slider.value = response.res;
     var progressBar = document.getElementById("volumeProgress");
     progressBar.value = slider.value;
-    var sliderValue = document.getElementById("sliderValue");
-    sliderValue.innerHTML = slider.value;
 
     changeVolume();
   });
