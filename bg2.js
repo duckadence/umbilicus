@@ -7,7 +7,7 @@ let timePassed;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 
-chrome.runtime.onMessage.addListener()
+chrome.runtime.onMessage.addListener();
 
 function onTimesUp() {
   clearInterval(timerInterval);
