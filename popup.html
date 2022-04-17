@@ -6,16 +6,50 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="popup.css">
+    <!-- JavaScript Bundle with Popper -->
+    <!--<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous">
+    </script>-->
 </head>
+
 <body>
     <script src="popup.js"></script>
     <h1>Foobar</h1>
-    <div class="timer">
-        Timer
+    <div class="timer-box">
+        <div id="timer"></div>
     </div>
+    <div class="slider-cont">
+        <div class="slider">
+            <input type="range" min="0" max="100" value="50" id="volumeSlider">
+            <progress min="0" max="100" value="50" id="volumeProgress"></progress>
+        </div>
+        <div class="sliderValue" id="sliderValue">50</div>
+      <div id="play">Play/Pause</div>
+    </div>
+    <!--<script>
+        slider = document.querySelector("input");
+        slider.oninput = function() {
+            progressBar = document.querySelector("progress");
+            progressBar.value = slider.value;
+            sliderValue = document.querySelector(".sliderValue");
+            sliderValue.innerHTML = slider.value;
+        }
+    </script>
     <div class="music-slider">
         Volume slider and other settings
-        <div id="play">Play/Pause</div>
-    </div>
+        <div class="rangeslider">
+            <input 
+                type="range"
+                min="0" 
+                max="100" 
+                value="10"       
+                class="myslider" 
+                id="sliderRange">
+            <div class="sliderValue">50</div>
+        </div>
+    </div>-->
+</body>
 </html>
 
