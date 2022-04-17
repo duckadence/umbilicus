@@ -1,20 +1,19 @@
-
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
 
 const COLOR_CODES = {
   info: {
-    color: "green"
+    color: "green",
   },
   warning: {
     color: "orange",
-    threshold: WARNING_THRESHOLD
+    threshold: WARNING_THRESHOLD,
   },
   alert: {
     color: "red",
-    threshold: ALERT_THRESHOLD
-  }
+    threshold: ALERT_THRESHOLD,
+  },
 };
 
 const TIME_LIMIT = 20;
@@ -23,7 +22,13 @@ let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
 
+document.addEventListener("DOMContentLoaded", function () {
+  var link = document.getElementById("play");
 
+  link.addEventListener("click", function () {
+    startOrStopMusic();
+  });
+});
 
 document.getElementById("timer").innerHTML = `
 <div class="base-timer">
@@ -59,9 +64,8 @@ function startTimer() {
   timerInterval = setInterval(() => {
     timePassed = timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML = formatTime(
-      timeLeft
-    );
+    document.getElementById("base-timer-label").innerHTML =
+      formatTime(timeLeft);
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
@@ -115,9 +119,7 @@ function setCircleDasharray() {
     .setAttribute("stroke-dasharray", circleDasharray);
 }
 
-function onChangeSlider() {
-
-}
+function onChangeSlider() {}
 
 // slider code
 //var slider = document.getElementById("volumeProgress");
@@ -126,10 +128,17 @@ var slider = document.getElementById("volumeSlider");
 var output = document.getElementById("sliderValue");
 output.innerHTML = slider.value;
 
-slider.oninput = function() {
+slider.oninput = function () {
   var progressBar = document.getElementById("volumeProgress");
   progressBar.value = slider.value;
   var sliderValue = document.getElementById("sliderValue");
   sliderValue.innerHTML = slider.value;
-}
+};
 
+var play = false;
+
+function startOrStopMusic() {
+  chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
+    console.log(response.farewell);
+  });
+}
