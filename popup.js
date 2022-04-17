@@ -16,6 +16,8 @@ const COLOR_CODES = {
   },
 };
 
+var slider;
+
 let TIME_LIMIT = 0;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
@@ -27,6 +29,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
   link.addEventListener("click", function () {
     startOrStopMusic();
+  });
+
+  slider = document.getElementById("volumeSlider");
+  var output = document.getElementById("sliderValue");
+  output.innerHTML = slider.value;
+
+  slider.oninput = function () {
+    var progressBar = document.getElementById("volumeProgress");
+    progressBar.value = slider.value;
+    var sliderValue = document.getElementById("sliderValue");
+    sliderValue.innerHTML = slider.value;
+
+    changeVolume();
+  };
+
+  chrome.runtime.sendMessage({ command: "getVolume" }, function (response) {
+    console.log(response.res);
+    slider.value = response.res;
+    var progressBar = document.getElementById("volumeProgress");
+    progressBar.value = slider.value;
+    var sliderValue = document.getElementById("sliderValue");
+    sliderValue.innerHTML = slider.value;
+
+    changeVolume();
   });
 });
 
@@ -56,6 +82,7 @@ document.getElementById("timer").innerHTML = `
 
 function onTimesUp() {
   clearInterval(timerInterval);
+  setRemainingPathColor(WARNING_THRESHOLD+1);
   TIME_LIMIT = 0;
   timeLeft = TIME_LIMIT;
   timePassed = 0;
@@ -75,7 +102,6 @@ function startTimer() {
     if (timeLeft <= 0) {
       chrome.runtime.sendMessage({ status: "finish" });
       onTimesUp();
-      setRemainingPathColor(283);
       const div = document.getElementById("input-container");
       div.style.opacity = "1";
     }
@@ -109,6 +135,13 @@ function setRemainingPathColor(timeLeft) {
     document
       .getElementById("base-timer-path-remaining")
       .classList.add(warning.color);
+  } else {
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.remove(alert.color);
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.add(info.color);
   }
 }
 
@@ -158,19 +191,6 @@ function onChangeSlider() {}
 // slider code
 //var slider = document.getElementById("volumeProgress");
 
-var slider = document.getElementById("volumeSlider");
-var output = document.getElementById("sliderValue");
-output.innerHTML = slider.value;
-
-slider.oninput = function () {
-  var progressBar = document.getElementById("volumeProgress");
-  progressBar.value = slider.value;
-  var sliderValue = document.getElementById("sliderValue");
-  sliderValue.innerHTML = slider.value;
-
-  changeVolume();
-};
-
 var play = false;
 
 function startOrStopMusic() {
@@ -182,7 +202,7 @@ function startOrStopMusic() {
 function changeVolume() {
   console.log(slider.value);
   chrome.runtime.sendMessage(
-    { command: "volume", volume: slider.value },
+    { command: "setVolume", volume: slider.value },
     function (response) {
       console.log(response.res);
     }
