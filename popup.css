@@ -111,8 +111,8 @@ body {
     border: 2px solid #e91e63;
     border-radius: 50%;
     cursor: pointer;
-    margin-top: -5px; /* alignment fix for Chrome */
-    margin-left:-5px;
+    margin-top: -3px; /* alignment fix for Chrome */
+    margin-left:-3px;
 }
 
 .slider progress {
