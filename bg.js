@@ -1,6 +1,70 @@
 var play = true;
 var volume = 50;
 
+var filter = [
+  "www.facebook.com",
+  "www.instagram.com",
+  "www.snapchat.com",
+  "www.tiktok.com",
+  "www.discord.com",
+];
+
+var blockInterval = undefined;
+
+function startBlocking() {
+  console.log("start");
+  blockInterval = setInterval(() => {
+    getActiveTab((t) => {
+      console.log("blocking");
+      if (t != undefined) {
+        filter.forEach((site) => {
+          if (t.url.includes(site)) {
+            window.location.replace(
+              "https://barexamblogrwu.files.wordpress.com/2019/06/visualization-and-motivation.jpg"
+            );
+            chrome.tabs.update(undefined, {
+              url: "https://barexamblogrwu.files.wordpress.com/2019/06/visualization-and-motivation.jpg",
+            });
+          }
+        });
+      }
+    });
+  }, 1000);
+}
+
+function stopBlocking() {
+  console.log("here");
+  if (blockInterval != undefined) {
+    console.log("clearInterval");
+    clearInterval(blockInterval);
+  }
+  blockInterval = undefined;
+}
+
+var activeTabId;
+
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  activeTabId = activeInfo.tabId;
+});
+
+function getActiveTab(callback) {
+  chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+    var tab = tabs[0];
+
+    if (tab) {
+      callback(tab);
+    } else {
+      chrome.tabs.get(activeTabId, function (tab) {
+        if (tab) {
+          callback(tab);
+        } else {
+          console.log("No active tab identified.");
+        }
+      });
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   var iframe = document.createElement("iframe");
   iframe.setAttribute("id", "youtube");
@@ -89,7 +153,8 @@ function onTimesUp() {
   TIME_LIMIT = 0;
   timeLeft = TIME_LIMIT;
   fadeMusic();
-  chrome.extension.getBackgroundPage().alert('You can now procrastinate!');
+  stopBlocking();
+  chrome.extension.getBackgroundPage().alert("You can now procrastinate!");
 }
 
 function sleep(ms) {
@@ -122,6 +187,7 @@ async function fadeMusic() {
 }
 
 function startTimer() {
+  startBlocking();
   clearInterval(timerInterval);
   document
     .getElementById("youtube")
@@ -153,4 +219,3 @@ function startTimer() {
     }
   }, 1000);
 }
-
