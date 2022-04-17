@@ -16,7 +16,7 @@ const COLOR_CODES = {
   },
 };
 
-const TIME_LIMIT = 20;
+let TIME_LIMIT = 0;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     startOrStopMusic();
   });
 });
+
 
 document.getElementById("timer").innerHTML = `
 <div class="base-timer">
@@ -54,8 +55,6 @@ document.getElementById("timer").innerHTML = `
 </div>
 `;
 
-startTimer();
-
 function onTimesUp() {
   clearInterval(timerInterval);
 }
@@ -71,6 +70,8 @@ function startTimer() {
 
     if (timeLeft === 0) {
       onTimesUp();
+      const div = document.getElementById('input-container');
+      div.style.opacity = '1';
     }
   }, 1000);
 }
@@ -118,6 +119,15 @@ function setCircleDasharray() {
     .getElementById("base-timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
 }
+
+document.getElementById("button").addEventListener("click", setTime);
+
+function setTime() {
+    TIME_LIMIT = document.getElementById('number').value * 60;
+    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+    startTimer();
+    const div = document.getElementById('input-container');
+    div.style.opacity = '0';
 
 function onChangeSlider() {}
 

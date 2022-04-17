@@ -15,7 +15,7 @@
   "web_accessible_resources": ["audio/lofi.mp3"],
   "background": {
     "persistent": true,
-    "scripts": ["bg.js"]
+    "scripts": ["bg.js", "bg2.js]
   },
   "permissions": [
     "tabs",
