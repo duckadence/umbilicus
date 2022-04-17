@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   iframe.setAttribute("height", "0");
   iframe.setAttribute(
     "src",
-    "https://www.youtube-nocookie.com/embed/5qap5aO4i9A?enablejsapi=1&autoplay=1"
+    "https://www.youtube-nocookie.com/embed/5qap5aO4i9A?enablejsapi=1"
   );
   iframe.setAttribute("frameborder", "0");
   iframe.setAttribute(
@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       ? "from a content script:" + sender.tab.url
       : "from the extension"
   );
-  if (request.greeting === "hello") {
+  if (request.command === "start/stop") {
     if (play) {
       //   $(".youtube-video")[0].contentWindow.postMessage(
       document
@@ -43,6 +43,17 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         );
       play = true;
     }
-    sendResponse({ farewell: "goodbye" });
+    sendResponse({ res: "done." });
+  } else if (request.command === "volume") {
+    document
+      .getElementById("youtube")
+      .contentWindow.postMessage(
+        '{"event":"command","func":"setVolume","args":' +
+          "[" +
+          request.volume +
+          "]" +
+          "}",
+        "*"
+      );
   }
 });

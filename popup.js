@@ -133,12 +133,24 @@ slider.oninput = function () {
   progressBar.value = slider.value;
   var sliderValue = document.getElementById("sliderValue");
   sliderValue.innerHTML = slider.value;
+
+  changeVolume();
 };
 
 var play = false;
 
 function startOrStopMusic() {
-  chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
-    console.log(response.farewell);
+  chrome.runtime.sendMessage({ command: "start/stop" }, function (response) {
+    console.log(response.res);
   });
+}
+
+function changeVolume() {
+  console.log(slider.value);
+  chrome.runtime.sendMessage(
+    { command: "volume", volume: slider.value },
+    function (response) {
+      console.log(response.res);
+    }
+  );
 }
