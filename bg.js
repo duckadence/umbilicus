@@ -7,6 +7,7 @@ var filter = [
   "www.snapchat.com",
   "www.tiktok.com",
   "www.discord.com",
+  "www.twitter.com",
 ];
 
 var blockInterval = undefined;
@@ -20,10 +21,10 @@ function startBlocking() {
         filter.forEach((site) => {
           if (t.url.includes(site)) {
             window.location.replace(
-              "https://barexamblogrwu.files.wordpress.com/2019/06/visualization-and-motivation.jpg"
+              "https://wallpapercave.com/wp/wp5857955.jpg"
             );
             chrome.tabs.update(undefined, {
-              url: "https://barexamblogrwu.files.wordpress.com/2019/06/visualization-and-motivation.jpg",
+              url: "https://wallpapercave.com/wp/wp5857955.jpg",
             });
           }
         });
@@ -154,7 +155,7 @@ function onTimesUp() {
   timeLeft = TIME_LIMIT;
   fadeMusic();
   stopBlocking();
-  chrome.extension.getBackgroundPage().alert("You can now procrastinate!");
+  chrome.extension.getBackgroundPage().alert("Take a break. You've earned it.");
 }
 
 function sleep(ms) {
