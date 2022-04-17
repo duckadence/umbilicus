@@ -16,7 +16,7 @@ const COLOR_CODES = {
   },
 };
 
-const TIME_LIMIT = 20;
+let TIME_LIMIT = 0;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
@@ -54,8 +54,6 @@ document.getElementById("timer").innerHTML = `
 </div>
 `;
 
-startTimer();
-
 function onTimesUp() {
   clearInterval(timerInterval);
 }
@@ -71,6 +69,8 @@ function startTimer() {
 
     if (timeLeft === 0) {
       onTimesUp();
+      const div = document.getElementById("input-container");
+      div.style.opacity = "1";
     }
   }, 1000);
 }
@@ -119,6 +119,16 @@ function setCircleDasharray() {
     .setAttribute("stroke-dasharray", circleDasharray);
 }
 
+document.getElementById("button").addEventListener("click", setTime);
+
+function setTime() {
+  TIME_LIMIT = document.getElementById("number").value * 60;
+  document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+  startTimer();
+  const div = document.getElementById("input-container");
+  div.style.opacity = "0";
+}
+
 function onChangeSlider() {}
 
 // slider code
@@ -133,12 +143,24 @@ slider.oninput = function () {
   progressBar.value = slider.value;
   var sliderValue = document.getElementById("sliderValue");
   sliderValue.innerHTML = slider.value;
+
+  changeVolume();
 };
 
 var play = false;
 
 function startOrStopMusic() {
-  chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
-    console.log(response.farewell);
+  chrome.runtime.sendMessage({ command: "start/stop" }, function (response) {
+    console.log(response.res);
   });
+}
+
+function changeVolume() {
+  console.log(slider.value);
+  chrome.runtime.sendMessage(
+    { command: "volume", volume: slider.value },
+    function (response) {
+      console.log(response.res);
+    }
+  );
 }

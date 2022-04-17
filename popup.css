@@ -8,16 +8,14 @@ body {
     align-items: center;
 }
 
-.timer-box {  
-    border: 1px;
-    border-style: solid;
-    border-color: black;
+.timer-box {
     width: 300px;
     height: 300px;
 }
 
 .base-timer {
     position: relative;
+    z-index: 0;
     height: 300px;
     width: 300px;
 }
@@ -66,6 +64,41 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 48px;
+}
+
+.time-input {
+    position: absolute;
+    margin-top: -200px;
+    margin-left: 50px;
+    z-index: 2;
+    width: 200px;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#button {
+    border: none;
+    border-radius: 8px;
+    background: grey;
+    padding: 4px 16px;
+}
+
+#number {
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 8px 24px;
+    width: 100px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    opacity: 1;
 }
 
 .music-slider {
