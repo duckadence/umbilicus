@@ -57,6 +57,5 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   } else if (request.command === "getVolume") {
     sendResponse({ res: volume });
   } else {
-    sendResponse({ res: "ERR: Invalid command." });
   }
 });

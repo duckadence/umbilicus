@@ -82,7 +82,7 @@ document.getElementById("timer").innerHTML = `
 
 function onTimesUp() {
   clearInterval(timerInterval);
-  setRemainingPathColor(WARNING_THRESHOLD+1);
+  setRemainingPathColor(WARNING_THRESHOLD + 1);
   TIME_LIMIT = 0;
   timeLeft = TIME_LIMIT;
   timePassed = 0;
@@ -90,12 +90,18 @@ function onTimesUp() {
 
 function startTimer() {
   clearInterval(timerInterval);
-  chrome.runtime.sendMessage({ status: "active", timeMax: TIME_LIMIT, timeRemain: timeLeft, timeOver: timePassed }); 
+  chrome.runtime.sendMessage({
+    status: "active",
+    timeMax: TIME_LIMIT,
+    timeRemain: timeLeft,
+    timeOver: timePassed,
+  });
   timerInterval = setInterval(() => {
     timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
 
-    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+    document.getElementById("base-timer-label").innerHTML =
+      formatTime(timeLeft);
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
@@ -169,22 +175,20 @@ function setTime() {
   div.style.opacity = "0";
 }
 
-chrome.runtime.sendMessage({ status: "inactive" },
-    function (response) {
-        if (response.status === "active") {
-            const div = document.getElementById("input-container");
-            div.style.opacity = "0";
-            TIME_LIMIT = response.timeMax;
-            timeLeft = response.timeRemain;
-            timePassed = response.timeOver;
-            document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
-            setCircleDasharray();
-            setRemainingPathColor(timeLeft);
-            startTimer();
-        }
-    }
-);
-
+chrome.runtime.sendMessage({ status: "inactive" }, function (response) {
+  if (response.status === "active") {
+    const div = document.getElementById("input-container");
+    div.style.opacity = "0";
+    TIME_LIMIT = response.timeMax;
+    timeLeft = response.timeRemain;
+    timePassed = response.timeOver;
+    document.getElementById("base-timer-label").innerHTML =
+      formatTime(timeLeft);
+    setCircleDasharray();
+    setRemainingPathColor(timeLeft);
+    startTimer();
+  }
+});
 
 function onChangeSlider() {}
 
