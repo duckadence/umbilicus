@@ -56,6 +56,7 @@ document.getElementById("timer").innerHTML = `
 
 function onTimesUp() {
   clearInterval(timerInterval);
+  setRemainingPathColor(WARNING_THRESHOLD+1);
   TIME_LIMIT = 0;
   timeLeft = TIME_LIMIT;
 }
@@ -71,7 +72,6 @@ function startTimer() {
 
     if (timeLeft <= 0) {
       onTimesUp();
-      setRemainingPathColor(283);
       const div = document.getElementById("input-container");
       div.style.opacity = "1";
     }
@@ -105,6 +105,13 @@ function setRemainingPathColor(timeLeft) {
     document
       .getElementById("base-timer-path-remaining")
       .classList.add(warning.color);
+  } else {
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.remove(alert.color);
+    document
+      .getElementById("base-timer-path-remaining")
+      .classList.add(info.color);
   }
 }
 
