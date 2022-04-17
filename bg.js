@@ -89,6 +89,7 @@ function onTimesUp() {
   TIME_LIMIT = 0;
   timeLeft = TIME_LIMIT;
   fadeMusic();
+  chrome.extension.getBackgroundPage().alert('You can now procrastinate!');
 }
 
 function sleep(ms) {
@@ -152,3 +153,4 @@ function startTimer() {
     }
   }, 1000);
 }
+
