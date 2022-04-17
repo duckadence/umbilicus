@@ -16,37 +16,12 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 20;
+let TIME_LIMIT = 0;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
 
-document.getElementById("timer").innerHTML = `
-<div class="base-timer">
-  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <g class="base-timer__circle">
-      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-      <path
-        id="base-timer-path-remaining"
-        stroke-dasharray="283"
-        class="base-timer__path-remaining ${remainingPathColor}"
-        d="
-          M 50, 50
-          m -45, 0
-          a 45,45 0 1,0 90,0
-          a 45,45 0 1,0 -90,0
-        "
-      ></path>
-    </g>
-  </svg>
-  <span id="base-timer-label" class="base-timer__label">${formatTime(
-    timeLeft
-  )}</span>
-</div>
-`;
-
-startTimer();
 
 function onTimesUp() {
   clearInterval(timerInterval);
@@ -56,14 +31,14 @@ function startTimer() {
   timerInterval = setInterval(() => {
     timePassed = timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML = formatTime(
-      timeLeft
-    );
+    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
     if (timeLeft === 0) {
       onTimesUp();
+      const div = document.getElementById('input-container');
+      div.style.opacity = '1';
     }
   }, 1000);
 }
@@ -110,4 +85,13 @@ function setCircleDasharray() {
   document
     .getElementById("base-timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
+}
+
+
+function setTime() {
+    TIME_LIMIT = document.getElementById('number').value * 60;
+    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+    startTimer();
+    const div = document.getElementById('input-container');
+    div.style.opacity = '0';
 }
