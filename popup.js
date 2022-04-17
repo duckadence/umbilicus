@@ -4,16 +4,16 @@ const ALERT_THRESHOLD = 5;
 
 const COLOR_CODES = {
   info: {
-    color: "green"
+    color: "green",
   },
   warning: {
     color: "orange",
-    threshold: WARNING_THRESHOLD
+    threshold: WARNING_THRESHOLD,
   },
   alert: {
     color: "red",
-    threshold: ALERT_THRESHOLD
-  }
+    threshold: ALERT_THRESHOLD,
+  },
 };
 
 let TIME_LIMIT = 0;
@@ -21,6 +21,14 @@ let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
+
+document.addEventListener("DOMContentLoaded", function () {
+  var link = document.getElementById("play");
+
+  link.addEventListener("click", function () {
+    startOrStopMusic();
+  });
+});
 
 
 document.getElementById("timer").innerHTML = `
@@ -55,7 +63,8 @@ function startTimer() {
   timerInterval = setInterval(() => {
     timePassed = timePassed += 1;
     timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML = formatTime(timeLeft);
+    document.getElementById("base-timer-label").innerHTML =
+      formatTime(timeLeft);
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
@@ -111,7 +120,6 @@ function setCircleDasharray() {
     .setAttribute("stroke-dasharray", circleDasharray);
 }
 
-
 document.getElementById("button").addEventListener("click", setTime);
 
 function setTime() {
@@ -120,4 +128,39 @@ function setTime() {
     startTimer();
     const div = document.getElementById('input-container');
     div.style.opacity = '0';
+
+function onChangeSlider() {}
+
+// slider code
+//var slider = document.getElementById("volumeProgress");
+
+var slider = document.getElementById("volumeSlider");
+var output = document.getElementById("sliderValue");
+output.innerHTML = slider.value;
+
+slider.oninput = function () {
+  var progressBar = document.getElementById("volumeProgress");
+  progressBar.value = slider.value;
+  var sliderValue = document.getElementById("sliderValue");
+  sliderValue.innerHTML = slider.value;
+
+  changeVolume();
+};
+
+var play = false;
+
+function startOrStopMusic() {
+  chrome.runtime.sendMessage({ command: "start/stop" }, function (response) {
+    console.log(response.res);
+  });
+}
+
+function changeVolume() {
+  console.log(slider.value);
+  chrome.runtime.sendMessage(
+    { command: "volume", volume: slider.value },
+    function (response) {
+      console.log(response.res);
+    }
+  );
 }

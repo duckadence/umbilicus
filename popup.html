@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Umbilicus</title>
     <link rel="stylesheet" href="popup.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
+
 <body>
     <div class="timer-box">
         <div id="timer"></div>
@@ -13,9 +15,14 @@
             <button id="button">Commit</button>
         </div>
     </div>
-    <div class="music-slider">
-        Volume slider and other settings
+    <div class="slider-cont">
+        <div class="slider">
+            <input type="range" min="0" max="100" value="50" id="volumeSlider">
+            <progress min="0" max="100" value="50" id="volumeProgress"></progress>
+        </div>
+        <div class="sliderValue" id="sliderValue">50</div>
     </div>
     <script src="popup.js"></script>
+    <div id="play">Play/Pause</div>
 </body>
 </html>
